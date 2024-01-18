@@ -1,4 +1,4 @@
-package me.kimminki.springbootdeveloper;
+package me.kimminki.springbootdeveloper.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
