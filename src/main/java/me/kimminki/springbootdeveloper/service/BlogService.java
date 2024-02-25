@@ -21,4 +21,10 @@ public class BlogService {
     public List<Article> findAll(){
         return blogRepository.findAll();
     }
+
+    // findById() 메서드는 JPA에서 제공하는 findById() 메서드를 사용해 ID를 받아 엔티티를 조회하고 없으면 IllegalArgumentException 예외를 발생
+    public Article findById(Long id){
+        return blogRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("not found: " + id));
+    }
 }
