@@ -47,4 +47,13 @@ public class BlogApiController {
         return ResponseEntity.ok()
                 .body(new ArticleResponse(article));
     }
+
+    // /api/articles/{id} DELETE 요청이 오면 {id}에 해당하는 값이 @PathVariable 애너테이션을 통해 들어온다.
+    @DeleteMapping("/api/articles/{id}")
+    public ResponseEntity<Void> deleteArticle(@PathVariable long id){
+        blogService.delete(id);
+
+        return ResponseEntity.ok()
+                .build();
+    }
 }
