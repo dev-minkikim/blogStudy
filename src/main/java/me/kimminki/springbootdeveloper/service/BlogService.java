@@ -3,8 +3,10 @@ package me.kimminki.springbootdeveloper.service;
 import lombok.RequiredArgsConstructor;
 import me.kimminki.springbootdeveloper.domain.Article;
 import me.kimminki.springbootdeveloper.dto.AddArticleRequest;
+import me.kimminki.springbootdeveloper.dto.UpdateArticleRequest;
 import me.kimminki.springbootdeveloper.repository.BlogRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,5 +33,17 @@ public class BlogService {
     // 이 메서드는 블로그 그르이 ID를 받은뒤 JPA에서 제공하는 deleteById() 메서드를 이용해 데이터베이스에서 데이터를 삭제
     public void delete(long id){
         blogRepository.deleteById(id);
+    }
+
+
+    //리포지토리를 사용해 글을 수정하는 update() 메서드 작성
+    @Transactional
+    public Article update(long id, UpdateArticleRequest request){
+        Article article = blogRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("not found: " + id));
+
+        article.update(request.getTitle(), request.getContent());
+
+        return article;
     }
 }

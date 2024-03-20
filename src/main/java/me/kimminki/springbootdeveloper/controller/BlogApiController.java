@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.kimminki.springbootdeveloper.domain.Article;
 import me.kimminki.springbootdeveloper.dto.AddArticleRequest;
 import me.kimminki.springbootdeveloper.dto.ArticleResponse;
+import me.kimminki.springbootdeveloper.dto.UpdateArticleRequest;
 import me.kimminki.springbootdeveloper.service.BlogService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,5 +56,14 @@ public class BlogApiController {
 
         return ResponseEntity.ok()
                 .build();
+    }
+
+    // /api/artitcles/{id} PUT 요청이 오면 글을 수정하기 위한 updateArticle() 메서드 작성
+    @PutMapping("/api/articles/{id}")
+    public ResponseEntity<Article> updateArticle(@PathVariable long id, @RequestBody UpdateArticleRequest request){
+        Article updatedArticle = blogService.update(id, request);
+
+        return ResponseEntity.ok()
+                .body(updatedArticle);
     }
 }
